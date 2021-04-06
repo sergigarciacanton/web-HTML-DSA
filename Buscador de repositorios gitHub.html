@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Buscador de repositorios gitHub</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+  <script>
+	$(document).ready(function(){
+		$("button").click(function(){
+			var URL = "https://api.github.com/users/" + usr.value + "/repos";
+			$.get(URL, function(data, status){
+                    var html = "";
+                    $.each(data, function(i, item){
+                    html = html + "<tr><td> " + item.name + "</td><td>" + item.description
+                        + "</td><td>" + item.stargazers_count + "</td></tr>";
+                    });
+
+                    $("tbody").html(html);
+                    $("tbody").show();
+                }
+			);
+        });
+	});
+  </script>
+  
+</head>
+<body>
+
+<div class="container">
+  <h2>Buscador de repositorios gitHub</h2>
+  <p>Introduzca en el cuadro de texto el nombre de usuario:</p>
+  <form>
+    <div class="form-group">
+      <label for="usr">Nombre:</label>
+      <input type="text" class="form-control" id="usr">
+	  <button type="button" class="btn btn-primary">Buscar usuario</button>
+    </div>
+  </form>
+</div>
+
+<div id="div1" class="container">
+  <p>Resultados de la búsqueda:</p>
+  <form>
+    <div class="form-group">
+	<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Seguidores</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>
